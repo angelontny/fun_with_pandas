@@ -1,15 +1,15 @@
 # Fun with Pandas
 
 ## Intro
-Track transactions using the sms.db sqlite database extracted from an encrypted iphone backup using libimobiledevice.
+Track transactions using the sms.db SQLite database extracted from an encrypted iPhone backup using libimobiledevice.
 
-Used pandas for extracting and formatting relevant information from the database into a csv file which was then imported into metabase for visualization.
+Used Pandas to extract and format relevant information from the database into a CSV file, which was then imported into Metabase for visualization.
 
-Data was read into a dataframe using the pandas.read_sql_query function. Relevant piece of data like amount and sender/receiver was extracted using patterns found within the text body. The timestamp of the message was used as the timestamp of the transaction as there isn't a noticable delay between both.
+Data was read into a DataFrame using the pandas.read_sql_query function. Relevant pieces of data—such as the amount and sender/receiver—were extracted using patterns found within the text body. The timestamp of the message was used as the timestamp of the transaction, as there isn’t a noticeable delay between the message and the actual transaction.
 
 ## Metabase
 
-Metabase was used for visualizing the extracted data. It's a simple visualization tool that supports data ingestion from csv files. 
+Metabase was used to visualize the extracted data. It's a simple visualization tool that supports data ingestion from CSV files.
 
 ## Visuals
 ![bar graph](./visuals/bar_graph.png 'bar graph')
