@@ -2,7 +2,6 @@ import sqlite3
 import pandas as pd
 import datetime as dt
 
-
 '''
 Notes:
 Numbers don't add up. Check for messages containing credited and debited as keywords
@@ -148,33 +147,6 @@ def extract_sr(text):
     elif 'reversal' in text:
         amount = 'reversal'
     return amount
-
-def test():
-    with sqlite3.connect('./data/sms.db') as conn:
-        cursor = conn.cursor()
-        query = '''
-            SELECT text FROM message
-            WHERE text like '%credited%' or text like '%Credited%'
-            or text like '%debited%' or text like '%Debited%' and text not like '%requested%';
-        '''
-
-        new_query = '''
-            SELECT text FROM message
-            WHERE text like '%Dear SBI User%' or text like '%Union Bank of India%' and text like '%Rs%';
-        '''
-
-        trans_query = '''
-            SELECT count(*)
-            FROM message
-            WHERE (text LIKE 'Sent Rs%' OR text LIKE 'Received Rs%') and handle_id <> 1267
-            UNION
-            select count(*) from message;
-        '''
-
-        result = cursor.execute(trans_query).fetchall()
-        for i in result:
-            print(i)
-
 
 if __name__ == "__main__":
     main()
