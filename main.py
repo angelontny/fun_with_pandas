@@ -1,3 +1,4 @@
+from operator import index
 import sqlite3
 import pandas as pd
 import datetime as dt
@@ -90,18 +91,17 @@ def main():
 
 
         final_df.rename(columns={'ROWID_x': 'trans_id'}, inplace=True)
+
         print(final_df.info())
         for k, v in status.items():
             print(k ,': ', v)
-        print(final_df['id'].nunique())
 
+        final_df['converted'] = final_df['beneficiary'].apply(new_convert)
         final_df.to_csv('./data/final.csv', index=False)
-
-        # print(trans_df)
 
 def apple_to_normal(timestamp):
     apple_epoch = dt.datetime(2001, 1, 1)
-    timestamp /= 1e9
+    timestamp //= 1e9
     return apple_epoch + dt.timedelta(seconds=timestamp)
 
 def extract_amount(text):
@@ -147,6 +147,20 @@ def extract_sr(text):
     elif 'reversal' in text:
         amount = 'reversal'
     return amount
+
+def convert_to_hrf(beneficiary, converted = {}):
+    if beneficiary in converted:
+        print(converted)
+        return converted[beneficiary]
+    else:
+        final = input(f'Who is {beneficiary}: ')
+        converted[beneficiary] = final
+        print(converted)
+        return final
+
+def new_convert(beneficiary):
+    keys = pd.read_csv('./data/keys.csv', index_col='id').squeeze()
+    return keys[beneficiary]
 
 if __name__ == "__main__":
     main()
