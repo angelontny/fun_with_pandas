@@ -12,4 +12,4 @@ Data was read into a dataframe using the pandas.read_sql_query function. Relevan
 Metabase was used for visualizing the extracted data. It's a simple visualization tool that supports data ingestion from csv files. 
 
 ## Visuals
-[Bar Graph](./visuals/bar_graph.png)
+![bar graph](./visuals/bar_graph.png 'bar graph')
